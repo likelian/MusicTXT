@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %}
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="MusicTXT is a web-based music composing software."
+    />
+    <meta name="author" content="Kelian Li, Shan Jiang" />
+    <meta name="generator" content="Hugo 0.98.0" />
+    <title>MusicTXT Note Writer</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+
+    <!-- load css here -->
+    <link href="{% static 'style.css' %}" rel="stylesheet" type="text/css"/>
+  </head>
+
+  <body>
+    <!-- run button, call update function -->
+    <button type="button" onclick="sendTxt()">Run</button>
+    <div id="runStatus"></div>
+
+    <!-- indicate the working directory -->
+    <div id="workingFile">You are working on {{ fname }}.txt</div>
+
+    <!-- this element serves for passing value to js, thus hidden -->
+    <div id="fname_ref" hidden>{{ fname }}</div>
+
+    <!-- input area -->
+    <div>
+      <p>
+        <textarea
+          style="width: 100%; max-width: 100%"
+          id="myTextArea"
+          rows="27"
+          cols="55"
+        ></textarea>
+      </p>
+    </div>
+
+    <!-- download buttons, for pdf/midi/ly -->
+    <div>
+      <a href="../media/{{ fname }}.pdf" download>
+        <input type="submit" name="submit" value="下载download pdf" />
+      </a>
+    </div>
+
+    <div>
+      <a href="../media/{{ fname }}.midi" download>
+        <input type="submit" name="submit" value="下载midi" />
+      </a>
+    </div>
+
+    <div>
+      <a href="../media/{{ fname }}.ly" download>
+        <input type="submit" name="submit" value="下载lilypond" />
+      </a>
+    </div>
+
+    <!-- submit txt file for converting -->
+    <div>
+      <form
+        method="post"
+        enctype="multipart/form-data"
+        action="{% url 'upload' %}"
+      >
+        {% csrf_token %}
+        <input type="file" name="{{ fname }}" />
+        <br>
+        <input type="submit">本地上传 upload from computer</input>
+      </form>
+    </div>
+
+    <!-- composition review -->
+    <!-- replace the url link when deploying-->
+    <p id="demo"></p>
+    <div>
+      <div class="split right">
+        <iframe
+          id="myIframe"
+          src = "../media/{{ fname }}.pdf"
+          {% comment %} google pdf viewer looks nicer? {% endcomment %}
+          {% comment %} src="https://docs.google.com/viewer?url=http://www.musictxt.org/download/a.pdf&embedded=true" {% endcomment %}
+          height="1200"
+          style="width: 100%; max-width: 100%; height: 100%"
+        ></iframe>
+      </div>
+    </div>
+
+    <script src="{% static 'style.js' %}"></script>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %}
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="MusicTXT is a web-based music composing software."
+    />
+    <meta name="author" content="Kelian Li, Shan Jiang" />
+    <meta name="generator" content="Hugo 0.98.0" />
+    <title>MusicTXT Note Writer</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}" />
+
+    <!-- load css here -->
+    <link href="{% static 'style.css' %}" rel="stylesheet" type="text/css" />
+  </head>
+
+  <body>
+    <h2>Please specify your file name:</h2>
+    <form action="{% url 'home' %}" method="GET">
+      <input type="text" id="fname" name="fname" />
+      <input type="submit" value="Submit" />
+    </form>
+  </body>
+</html>

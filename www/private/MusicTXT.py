@@ -392,7 +392,7 @@ def getMeasures(line):
 
 
 
-scoreLines = getFooter(removeComments(readLines("/var/www/html/upload/a.txt")));
+scoreLines = getFooter(removeComments(readLines("../upload/a.txt")));
 lineIndex=0;
 while scoreLines[lineIndex].strip() == "": lineIndex += 1;
 [title, artists]=loadTitleAndArtist(scoreLines[lineIndex]); lineIndex+=1;

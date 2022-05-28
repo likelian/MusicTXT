@@ -1,0 +1,41 @@
+Ode to Joy : Ludwig van Beethoven
+1=C 4/4
+T=140 % tempo
+
+C            D
+|  1 2 34 5| 1 2 34 5|
+%|| 3 5 6  7| 3 5 6  7|
+%|||5 6 7  1'| 5 6 7  1'|
+: 一
+
+E            F
+|  1 2 34 5| 1 2 34 5|
+%|| 3 5 6  7 | 3 5 6  7|
+%|||5 6 7  1'| 5 6 7  1'|
+
+%Db+_____D#o        EbM7____E7           Fm7 F#+7 Gbo7 Gsus4
+%:one two three four one two three four
+
+%%
+This is footer
+%%
+
+
+
+%%%
+
+Title : Artist
+1=C                       % key  signiture
+4/4                       % time signiture
+T=140                     % tempo
+
+   C         D___E7       % chords
+|  1 2 34 5| 2 2 -3 4|    % melody beteween barlines
+|| 3 - -  -| 6 - -  -|    % the second voice starts with ||
+: This is lyrics
+
+%%
+© 2022 Artist             % footer between two double%
+%%
+
+%%%
