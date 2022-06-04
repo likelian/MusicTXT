@@ -12,6 +12,8 @@ http://137.184.67.73/
 
 ### Its backend:
 Django + Gunicorn + Nginx + Digital Ocean
+### Deployment Tips
+https://www.linkedin.com/learning/deploying-django-apps-make-your-site-go-live/digital-ocean-account?autoplay=true&resume=false
 
 ### The Remaining works:
 1. Enable user sign up & log in;
