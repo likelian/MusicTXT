@@ -1,7 +1,10 @@
+import http
+from http.client import HTTPResponse
 from django.shortcuts import render
 import subprocess
 import sys
 from .models import Pond
+from django.http import HttpResponse
 
 # for file uploading
 from django.conf import settings
@@ -43,6 +46,15 @@ def update(request):
         file.close()
         # convert txt to ly
         subprocess.run(["python3", "ponds/static/MusicTXT.py", "-s", fname])
-        # convert ly to pdf+midi
+        # convert ly to pdf+midi, then move to the corresponding directory
         # subprocess.run(["lilypond", "media/"+fname+".ly"])
-    return render(request, 'ponds/home.html', {'ponds': ponds})
+        # subprocess.run(["mv", fname+".pdf", "media"])
+        # subprocess.run(["mv", fname+".midi", "media"])
+        return HttpResponse("pdf generated")
+    else:
+        return HttpResponse("pdf failed to generate")
+
+
+def error_404(request, exception):
+    data = {}
+    return render(request, 'ponds/404.html', data)

@@ -10,17 +10,14 @@
     />
     <meta name="author" content="Kelian Li, Shan Jiang" />
     <title>MusicTXT Note Writer</title>
-    <!-- load icon here-->
     <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}" />
+
     <!-- load css here -->
     <link href="{% static 'style.css' %}" rel="stylesheet" type="text/css" />
   </head>
 
   <body>
-    <h2>Please specify your file name:</h2>
-    <form action="{% url 'home' %}" method="GET">
-      <input type="text" id="fname" name="fname" />
-      <input type="submit" value="Submit" />
-    </form>
+    <h1>Your PDF file is not ready yet.</h1>
+    <h1>Please press run button to get it.</h1>
   </body>
 </html>

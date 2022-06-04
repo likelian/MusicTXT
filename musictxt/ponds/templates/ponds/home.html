@@ -14,81 +14,118 @@
     <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
 
     <!-- load css here -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="{% static 'style.css' %}" rel="stylesheet" type="text/css"/>
   </head>
 
   <body>
-    <!-- run button, call update function -->
-    <button type="button" onclick="sendTxt()">Run</button>
-    <div id="runStatus"></div>
+    <div class="container-fluid">
+      <div class="col-6">
+        <div class="row align-items-start justify-content-start">
 
-    <!-- indicate the working directory -->
-    <div id="workingFile">You are working on {{ fname }}.txt</div>
+          <!-- Sec 1. run button, call update function -->
+          <div class="col-3">
+            <button class="btn btn-primary" type="button" onclick="sendTxt()">Run and Save</button>
+            <div id="runStatus"></div>
 
-    <!-- this element serves for passing value to js, thus hidden -->
-    <div id="fname_ref" hidden>{{ fname }}</div>
+            <!-- indicate the working directory -->
+            <div id="workingFile">You are working on {{ fname }}.txt</div>
+          </div>
 
-    <!-- input area -->
-    <div>
-      <p>
-        <textarea
-          style="width: 100%; max-width: 100%"
-          id="myTextArea"
-          rows="27"
-          cols="55"
-        ></textarea>
-      </p>
+          <!-- this element serves for passing value to js, thus hidden -->
+          <div id="fname_ref" hidden>{{ fname }}</div>
+
+          <!-- Sec.2 download buttons, for pdf/midi/ly -->
+          <div class="col-3 dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Download
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="/media/{{ fname }}.pdf" download>
+                download pdf file
+              {% comment %} <input type="submit" name="submit" value="下载download pdf" /> {% endcomment %}
+              </a>
+              <a class="dropdown-item" href="/media/{{ fname }}.midi" download>
+                {% comment %} <input type="submit" name="submit" value="下载midi" /> {% endcomment %}
+                download midi file
+              </a>
+              <a class="dropdown-item" href="/media/{{ fname }}.ly" download>
+                {% comment %} <input type="submit" name="submit" value="下载lilypond" /> {% endcomment %}
+                download lilypond file
+              </a>
+            </div>
+          </div>
+
+          <!-- Sec.3 submit txt file for converting -->
+          <div class="col-2">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">
+              Upload
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Upload Your Text</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form method="post" id="form_upload" enctype="multipart/form-data" action="{% url 'upload' %}">
+                      {% csrf_token %}
+                      <input type="file" name="{{ fname }}" />
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" form="form_upload" value="Submit">Upload</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Sec.4 Create New Files -->
+          <div class="col-3">
+            <a class="btn btn-secondary" href="{% url 'landing' %}" role="button">Create New Files</a>
+          </div>
+
+        </div>
+        <div class="row">
+          <!-- input area -->
+          <div class="col-12">
+            <textarea
+              style="width: 100%; max-width: 100%"
+              id="myTextArea"
+              rows="27"
+              cols="55"
+            ></textarea>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- download buttons, for pdf/midi/ly -->
-    <div>
-      <a href="../media/{{ fname }}.pdf" download>
-        <input type="submit" name="submit" value="下载download pdf" />
-      </a>
-    </div>
-
-    <div>
-      <a href="../media/{{ fname }}.midi" download>
-        <input type="submit" name="submit" value="下载midi" />
-      </a>
-    </div>
-
-    <div>
-      <a href="../media/{{ fname }}.ly" download>
-        <input type="submit" name="submit" value="下载lilypond" />
-      </a>
-    </div>
-
-    <!-- submit txt file for converting -->
-    <div>
-      <form
-        method="post"
-        enctype="multipart/form-data"
-        action="{% url 'upload' %}"
-      >
-        {% csrf_token %}
-        <input type="file" name="{{ fname }}" />
-        <br>
-        <input type="submit">本地上传 upload from computer</input>
-      </form>
-    </div>
-
-    <!-- composition review -->
-    <!-- replace the url link when deploying-->
-    <p id="demo"></p>
-    <div>
+    <div class="col-6">
+      <!-- composition review -->
+      <!-- replace the url link when deploying-->
+      <p id="demo"></p>
       <div class="split right">
         <iframe
           id="myIframe"
-          src = "../media/{{ fname }}.pdf"
-          {% comment %} google pdf viewer looks nicer? {% endcomment %}
-          {% comment %} src="https://docs.google.com/viewer?url=http://www.musictxt.org/download/a.pdf&embedded=true" {% endcomment %}
+          src = "/media/{{ fname }}.pdf"
           height="1200"
           style="width: 100%; max-width: 100%; height: 100%"
         ></iframe>
       </div>
     </div>
 
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="{% static 'style.js' %}"></script>
   </body>
 </html>

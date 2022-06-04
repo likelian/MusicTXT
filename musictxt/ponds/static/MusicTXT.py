@@ -480,14 +480,14 @@ def getMeasures(line):
             break
 
 
-# get value from views.py
+# get value from django -> views.py
 parser = argparse.ArgumentParser()
 parser.add_argument("-s", "--string", type=str, required=True)
 args = parser.parse_args()
 # print(args.string)
 print(os.path.dirname(os.path.realpath(__file__)))
 
-
+# oepn the file by here
 scoreLines = getFooter(removeComments(
     readLines("media/"+args.string+".txt")))
 lineIndex = 0
@@ -543,7 +543,7 @@ if hasChord:
 scoreCode = scoreCode.format(pianoCode, chords, lyrics, downCode)
 midiCode = midiCode.format(downCode)
 
-
+# save the file by here
 file = open("media/"+args.string+".ly", "w")
 file.write(headerCode)
 file.write(melodyCode)

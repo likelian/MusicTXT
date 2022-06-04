@@ -1,7 +1,8 @@
 // Load txt file to text area
+// Start execution as soon as page is loaded
 var fname = document.getElementById("fname_ref").innerText;
 window.onload = function loadTxt() {
-    console.log(fname);
+    console.log(fname,".txt is loaded!");
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -12,6 +13,7 @@ window.onload = function loadTxt() {
     xhttp.send();
     console.log("txt loaded");
 }
+
 
 // everytime when press "run" button
 // step 1: client submit the form
@@ -41,8 +43,14 @@ function sendTxt() {
     var data = document.getElementById("myTextArea").value;
     fd.append('data', data);
     fd.append('fname', fname);
+    // refresh iframe when success
     xhr.addEventListener('load', function(e) {
-        document.getElementById("runStatus").innerHTML = "Successfully Run!";
+        document.getElementById("runStatus").innerHTML = "Success!";
+        console.log(xhr.response);
+        document.getElementById("myIframe").contentWindow.location.reload();
+    });
+    xhr.addEventListener('loadstart', function(e) {
+        document.getElementById("runStatus").innerHTML = "Loading...";
     });
     xhr.addEventListener('error', function(e) {
         alert('request failed for some reason, please look into the sendText()');

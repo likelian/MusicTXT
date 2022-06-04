@@ -1,6 +1,6 @@
 textarea {
     resize: none;
-    font-size: 20px;
+    font-size: 15px;
   }
 
 .split {
@@ -13,10 +13,7 @@ textarea {
   padding-top: 0px;
 }
 
-.left {
-  left: 0;
-}
-
 .right {
   right: 0;
 }
+
