@@ -11,9 +11,9 @@ http://lilybin.com/
 http://137.184.67.73/
 #### Source code is put in musictxt folder.
 
-### Its backend
+### Backend Design
 Django + Gunicorn + Nginx + Digital Ocean
-### Deployment Tips
+#### Deployment Tips
 https://www.linkedin.com/learning/deploying-django-apps-make-your-site-go-live/digital-ocean-account?autoplay=true&resume=false
 
 ### The Remaining works:
