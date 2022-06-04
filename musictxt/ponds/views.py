@@ -47,9 +47,9 @@ def update(request):
         # convert txt to ly
         subprocess.run(["python3", "ponds/static/MusicTXT.py", "-s", fname])
         # convert ly to pdf+midi, then move to the corresponding directory
-        # subprocess.run(["lilypond", "media/"+fname+".ly"])
-        # subprocess.run(["mv", fname+".pdf", "media"])
-        # subprocess.run(["mv", fname+".midi", "media"])
+        subprocess.run(["lilypond", "media/"+fname+".ly"])
+        subprocess.run(["mv", fname+".pdf", "media"])
+        subprocess.run(["mv", fname+".midi", "media"])
         return HttpResponse("pdf generated")
     else:
         return HttpResponse("pdf failed to generate")
