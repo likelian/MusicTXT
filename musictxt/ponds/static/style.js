@@ -63,7 +63,8 @@ function sendTxt() {
     xhr.addEventListener('load', function(e) {
         document.getElementById("runStatus").innerHTML = "Success!";
         console.log(xhr.response);
-        document.getElementById("myIframe").contentWindow.location.reload();
+        document.getElementById("myIframe").src = "/media/" + fname + ".pdf";
+        console.log(document.getElementById("myIframe").src);
     });
     xhr.addEventListener('loadstart', function(e) {
         document.getElementById("runStatus").innerHTML = "Loading...";
