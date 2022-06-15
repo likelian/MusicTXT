@@ -2,16 +2,32 @@
 // Start execution as soon as page is loaded
 var fname = document.getElementById("fname_ref").innerText;
 window.onload = function loadTxt() {
-    console.log(fname,".txt is loaded!");
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("myTextArea").innerHTML = this.responseText;
+            console.log(fname, ".txt has been loaded!");
+            // sendTxt();
+        } else if (this.status == 404) {
+            console.log("can't find the txt file, will create a new one from template.");
+            var xhttp2 = new XMLHttpRequest();
+            xhttp2.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("myTextArea").innerHTML = this.responseText;
+                    console.log("ref.txt has been loaded!");
+                    document.getElementById("myIframe").src = "/media/tutorial.pdf";
+                    console.log("tutorial.pdf has been loaded");
+                    // sendTxt();
+                } else if (history.status == 404) {
+                    console.log("Can't even find the template text!");
+                }
+            }
+            xhttp2.open("GET", "../media/"+"ref.txt", true);
+            xhttp2.send();
         }
     };
     xhttp.open("GET", "../media/"+fname+".txt", true);
     xhttp.send();
-    console.log("txt loaded");
 }
 
 

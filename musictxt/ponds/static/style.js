@@ -15,6 +15,8 @@ window.onload = function loadTxt() {
                 if (this.readyState == 4 && this.status == 200) {
                     document.getElementById("myTextArea").innerHTML = this.responseText;
                     console.log("ref.txt has been loaded!");
+                    document.getElementById("myIframe").src = "/media/tutorial.pdf";
+                    console.log("tutorial.pdf has been loaded");
                     // sendTxt();
                 } else if (history.status == 404) {
                     console.log("Can't even find the template text!");
